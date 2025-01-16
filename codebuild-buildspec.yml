@@ -1,0 +1,35 @@
+
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+    commands:
+      - pip install --upgrade --force-reinstall . "awscli>1.20.30"
+      - pip install mlflow==2.13.2 sagemaker-mlflow s3fs xgboost
+    
+  build:
+    commands:
+      - export SAGEMAKER_USER_CONFIG_OVERRIDE="./config.yaml"
+      - export PYTHONUNBUFFERED=TRUE
+      - export SAGEMAKER_PROJECT_NAME_ID="${SAGEMAKER_PROJECT_NAME}-${SAGEMAKER_PROJECT_ID}"
+      - |
+        run-pipeline \
+          --role-arn $SAGEMAKER_PIPELINE_ROLE_ARN \
+          --tags "[{\"Key\":\"sagemaker:project-name\",\"Value\":\"${SAGEMAKER_PROJECT_NAME}\"}, {\"Key\":\"sagemaker:project-id\", \"Value\":\"${SAGEMAKER_PROJECT_ID}\"}]" \
+          --pipeline-name "Player-Churn-Model-Training-Pipeline" \
+          --kwargs "{ \
+                \"region\":\"us-east-1\", \
+                \"feature_group_name\":\"FG-player-churn-feature-engineering-a5cbe75f\",\
+                \"bucket_name\":\"sagemaker-us-east-1-858451092442\",\
+                \"bucket_prefix\":\"player-churn/xgboost\",\
+                \"experiment_name\":\"player-churn-model-build-pipeline\", \
+                \"train_instance_type\":\"ml.m5.xlarge\", \
+                \"test_score_threshold\":\"0.75\",\
+                \"model_package_group_name\":\"player-churn-model-group\",\
+                \"model_approval_status\":\"PendingManualApproval\",\
+                \"mlflow_tracking_server_arn\":\"arn:aws:sagemaker:us-east-1:858451092442:mlflow-tracking-server/mlflow-d-muwzxeno4zza\"\
+                    }"
+      - echo "Create/update of the SageMaker Pipeline and a pipeline execution completed."

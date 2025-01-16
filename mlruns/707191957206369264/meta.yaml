@@ -1,0 +1,6 @@
+artifact_location: file:///home/sagemaker-user/mlops-sagemaker-mlflow/mlruns/707191957206369264
+creation_time: 1737025831784
+experiment_id: '707191957206369264'
+last_update_time: 1737025831784
+lifecycle_stage: active
+name: player-churn-model-experiment

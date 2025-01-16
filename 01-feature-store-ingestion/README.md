@@ -1,0 +1,2 @@
+## Feature Store Ingestion 
+The content of this lab has been updated and can be found in [here](https://catalog.us-east-1.prod.workshops.aws/workshops/b9405337-9690-4fb2-9f7d-76e6babb7a2c/en-US/02-lab-02#step-1:-feature-store-ingestion). Please refer to the content in the link and follow the instructions.

@@ -1,0 +1,1 @@
+{"evaluation_result": {"classification_metrics": {"auc_score": {"value": 0.9801948051948053}}}, "prediction_baseline_data": "s3://sagemaker-us-east-1-858451092442/player-churn/xgboost/prediction_baseline/prediction_baseline.csv", "experiment_name": "player-churn-model-experiment"}
